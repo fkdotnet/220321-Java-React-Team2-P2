@@ -21,9 +21,24 @@ public class User {
 		private String pw;
 		private String firstName;
 		private String lastName;
+		private String email;
+		private List<Note> userNotes = new ArrayList<>();
+
+	
+		public Long getUser_id() {
+			return user_id;
+		}
+		public void setUser_id(Long user_id) {
+			this.user_id = user_id;
+		}
+		public List<Note> getUserNotes() {
+			return userNotes;
+		}
+		public void setUserNotes(List<Note> userNotes) {
+			this.userNotes = userNotes;
+		}
 		@OneToMany(cascade = CascadeType.ALL)
 		@JoinColumn(name="user_id")
-		private List<Note> userNotes = new ArrayList<>();
 		public Long getId() {
 			return user_id;
 		}
@@ -54,6 +69,21 @@ public class User {
 		public void setLastName(String lastName) {
 			this.lastName = lastName;
 		}
+		public String getEmail() {
+			return email;
+		}
+		public void setEmail(String email) {
+			this.email = email;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		public User() {
 			super();
 		}
