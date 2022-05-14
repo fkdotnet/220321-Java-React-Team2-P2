@@ -1,3 +1,8 @@
+/*This is a service class for the User Domain MODEL. This Class accesses the user CRUD Repository  
+ * (included with Spring MVC) as a microservices platform to perform Database operations, the 
+ * the common CRUD (Create,Read,Update,Delete) are included */
+
+
 package com.darkmode.service;
 
 import java.util.List;
@@ -54,6 +59,12 @@ private final UserRepository userRepository;
 		note.setUser(user);
 		return user;
 	}
-	
-	
+	@Transactional
+	public User deleteNote(long user_id, long note_id) {
+		User user = getUserbyID(user_id);
+		Note note = NoteService.getNotebyID(note_id);
+		user.removeNote(note);
+		return user;
+		
+		}
 }

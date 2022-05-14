@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,14 @@ public List<Note> getNotes(){
 }
 public Note getNotebyID(long id) {
 	return noteRepository.findById(id).orElseThrow(() -> new NoteNotFoundException(id));
+}
+
+@Transactional
+public Note editNote(long id, Note note) {
+	Note noteToEdit = getNotebyID(id);
+	noteToEdit.setTextObj(note.getTextObj());
+	return noteToEdit;
+	
 }
 
 }
