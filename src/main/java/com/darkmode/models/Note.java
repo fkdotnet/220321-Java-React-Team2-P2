@@ -3,12 +3,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Note{
 	private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long note_id;
 	private String Title;
 	private String TextObj;
+	@ManyToOne
 	private User user;
 	public User getUser() {
 		return user;

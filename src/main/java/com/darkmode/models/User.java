@@ -22,6 +22,8 @@ public class User {
 		private String firstName;
 		private String lastName;
 		private String email;
+		@OneToMany(cascade = CascadeType.ALL)
+		@JoinColumn(name="user_id")
 		private List<Note> userNotes = new ArrayList<>();
 
 	
@@ -37,8 +39,7 @@ public class User {
 		public void setUserNotes(List<Note> userNotes) {
 			this.userNotes = userNotes;
 		}
-		@OneToMany(cascade = CascadeType.ALL)
-		@JoinColumn(name="user_id")
+		
 		public Long getId() {
 			return user_id;
 		}
