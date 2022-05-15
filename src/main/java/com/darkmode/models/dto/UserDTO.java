@@ -13,6 +13,16 @@ private String first_name;
 private String last_name;
 private String userName;
 private String passwrd;
+private String email;
+public String getEmail() {
+	return email;
+}
+
+
+
+public void setEmail(String email) {
+	this.email = email;
+}
 private List <NoteDTO> notesDTO = new ArrayList<>();
 
 
@@ -35,6 +45,7 @@ public static UserDTO from(User user) {
 	userDTO.setFirst_name(user.getFirstName());
 	userDTO.setLast_name(user.getLastName());
 	userDTO.setPasswrd(user.getPw());
+	userDTO.setEmail(user.getEmail());
 	userDTO.setNotesDTO(user.getUserNotes().stream().map(NoteDTO::from).collect(Collectors.toList()));
 	return userDTO;
 }
@@ -64,13 +75,14 @@ public boolean equals(Object obj) {
 			&& Objects.equals(passwrd, other.passwrd) && Objects.equals(userName, other.userName)
 			&& user_id == other.user_id;
 }
-public UserDTO(long user_id, String first_name, String last_name, String userName, String passwrd) {
+public UserDTO(long user_id, String first_name, String last_name, String userName, String passwrd, String email) {
 	super();
 	this.user_id = user_id;
 	this.first_name = first_name;
 	this.last_name = last_name;
 	this.userName = userName;
 	this.passwrd = passwrd;
+	this.email = email;
 }
 public void setUser_id(long user_id) {
 	this.user_id = user_id;

@@ -6,24 +6,28 @@ import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-	import javax.persistence.GeneratedValue;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 	import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.darkmode.models.dto.UserDTO;
 
 @Entity
+@Table(name = "users", schema = "dark_mode")
 public class User {
 
 
 
 		private @Id @GeneratedValue Long user_id;
-		private String userName;
-		private String pw;
-		private String firstName;
-		private String lastName;
+		private String username;
+		private String passwrd;
+		private String first_name;
+		private String last_name;
 		private String email;
-		@OneToMany(cascade = CascadeType.ALL)
-		@JoinColumn(name="user_id")
+		@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
 		private List<Note> userNotes = new ArrayList<>();
 
 	
@@ -47,28 +51,28 @@ public class User {
 			this.user_id = id;
 		}
 		public String getUserName() {
-			return userName;
+			return username;
 		}
 		public void setUserName(String userName) {
-			this.userName = userName;
+			this.username = userName;
 		}
 		public String getPw() {
-			return pw;
+			return passwrd;
 		}
 		public void setPw(String pw) {
-			this.pw = pw;
+			this.passwrd = pw;
 		}
 		public String getFirstName() {
-			return firstName;
+			return first_name;
 		}
 		public void setFirstName(String firstName) {
-			this.firstName = firstName;
+			this.first_name = firstName;
 		}
 		public String getLastName() {
-			return lastName;
+			return last_name;
 		}
 		public void setLastName(String lastName) {
-			this.lastName = lastName;
+			this.last_name = lastName;
 		}
 		public String getEmail() {
 			return email;
@@ -90,7 +94,7 @@ public class User {
 		}
 		@Override
 		public int hashCode() {
-			return Objects.hash(firstName, user_id, lastName, pw, userName);
+			return Objects.hash(first_name, user_id, last_name, passwrd, username);
 		}
 		@Override
 		public boolean equals(Object obj) {
@@ -101,9 +105,9 @@ public class User {
 			if (getClass() != obj.getClass())
 				return false;
 			User other = (User) obj;
-			return Objects.equals(firstName, other.firstName) && Objects.equals(user_id, other.user_id)
-					&& Objects.equals(lastName, other.lastName) && Objects.equals(pw, other.pw)
-					&& Objects.equals(userName, other.userName);
+			return Objects.equals(first_name, other.first_name) && Objects.equals(user_id, other.user_id)
+					&& Objects.equals(last_name, other.last_name) && Objects.equals(passwrd, other.passwrd)
+					&& Objects.equals(username, other.username);
 		}
 		
 		
@@ -114,6 +118,16 @@ public class User {
 		public void removeNote(Note note) {
 			userNotes.remove(note);
 		}
-		
+		public static User from(UserDTO userDTO) {
+			User user = new User();
+			user.setUser_id(userDTO.getUser_id());
+			user.setFirstName(userDTO.getFirst_name());
+			user.setLastName(userDTO.getLast_name());
+			user.setUserName(userDTO.getUserName());
+			user.setPw(userDTO.getPasswrd());
+			user.setEmail(userDTO.getEmail());
+			return user;
+			
+		}
 	}
 

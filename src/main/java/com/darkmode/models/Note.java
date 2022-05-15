@@ -1,17 +1,29 @@
 package com.darkmode.models;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "notes", schema = "dark_mode")
+
 public class Note{
 	private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long note_id;
 	private String Title;
-	private String TextObj;
-	@ManyToOne
+	private String note_object;
+	private String date_created;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
 	private User user;
+	public Note() {
+		
+		
+	}
 	public User getUser() {
 		return user;
 	}
@@ -22,7 +34,7 @@ public class Note{
 		super();
 		this.note_id = note_id;
 		Title = title;
-		TextObj = textObj;
+		note_object = textObj;
 	}
 	public Long getNote_id() {
 		return note_id;
@@ -37,11 +49,16 @@ public class Note{
 		Title = title;
 	}
 	public String getTextObj() {
-		return TextObj;
+		return note_object;
 	}
 	public void setTextObj(String textObj) {
-		TextObj = textObj;
+		note_object = textObj;
 	}
-	
+	public String getDate_created() {
+		return date_created;
+	}
+	public void setDate_created(String date_created) {
+		this.date_created = date_created;
+	}
 	
 }
