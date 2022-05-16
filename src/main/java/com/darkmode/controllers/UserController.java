@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.darkmode.models.RevNoteUser;
+import com.darkmode.models.User;
 import com.darkmode.models.dto.UserDTO;
 import com.darkmode.service.UserService;
 
@@ -53,7 +54,18 @@ RevNoteUser user = userService.getUserbyID(id);
 return new ResponseEntity<>(UserDTO.from(user),HttpStatus.OK);
 }
 
+
+@PostMapping(value="{userID}/notes/{noteID}/add")
+@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+
+public ResponseEntity<UserDTO> addNotetoUser(@PathVariable final long userID, 
+												@PathVariable final long noteID){
+		RevNoteUser user = userService.addNoteToUserNotes(userID, noteID);
+		return new ResponseEntity<>(UserDTO.from(user), HttpStatus.OK);
+		
+		
 	
+}
 }
 
 
