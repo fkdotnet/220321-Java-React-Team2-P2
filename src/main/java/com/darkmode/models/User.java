@@ -29,6 +29,11 @@ public class User {
 	private String password;
 	
 	
+	public User() {
+		super();
+	}
+
+
 	public User(@NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 50) @Email String email,
 			@NotBlank @Size(max = 120) String password) {
 		super();

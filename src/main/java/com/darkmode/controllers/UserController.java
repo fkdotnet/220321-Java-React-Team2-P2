@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,8 @@ UserController(UserService userService){
 	
 }
 @PostMapping
+@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')") 
+
 public ResponseEntity<UserDTO> addUser(@RequestBody final UserDTO userDTO){
 	RevNoteUser user = userService.addUser(RevNoteUser.from(userDTO));
 	return new ResponseEntity<>(UserDTO.from(user),HttpStatus.OK);
@@ -35,12 +38,16 @@ public ResponseEntity<UserDTO> addUser(@RequestBody final UserDTO userDTO){
 
 }
 @GetMapping
+@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')") 
+
 public ResponseEntity<List<UserDTO>> getUsers(){
 	List<RevNoteUser> retUsers = userService.getUsers();
 	List<UserDTO> retUsersDto = retUsers.stream().map(UserDTO::from).collect(Collectors.toList());
 	return new ResponseEntity<>(retUsersDto,HttpStatus.OK);
 }
 @GetMapping(value= "{id}")
+@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')") 
+
 public ResponseEntity<UserDTO> getUser(@PathVariable final Long id) {
 RevNoteUser user = userService.getUserbyID(id);
 return new ResponseEntity<>(UserDTO.from(user),HttpStatus.OK);
