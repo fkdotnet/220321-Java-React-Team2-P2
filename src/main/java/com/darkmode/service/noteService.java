@@ -9,9 +9,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.darkmode.NoteRepository;
 import com.darkmode.models.Note;
 import com.darkmode.models.exception.*;
+import com.darkmode.repositories.NoteRepository;
 
 @Service
 public class noteService {

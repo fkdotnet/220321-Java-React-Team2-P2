@@ -8,26 +8,36 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.darkmode.models.dto.NoteDTO;
+
 @Entity
 @Table(name = "notes", schema = "dark_mode")
 
 public class Note{
-	private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long note_id;
+	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long note_id;
 	private String Title;
 	private String note_object;
 	private String date_created;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private User user;
+	private RevNoteUser user;
 	public Note() {
 		
 		
 	}
-	public User getUser() {
+	
+	public static Note from(NoteDTO noteDTO) {
+		Note note = new Note();
+		note.setTitle(noteDTO.getNote_title());
+		note.setTextObj(noteDTO.getNoteObject());
+		return note;
+		
+	}
+	public RevNoteUser getUser() {
 		return user;
 	}
-	public void setUser(User user) {
+	public void setUser(RevNoteUser user) {
 		this.user = user;
 	}
 	public Note(Long note_id, String title, String textObj) {

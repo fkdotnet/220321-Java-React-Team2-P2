@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import com.darkmode.models.User;
+import com.darkmode.models.RevNoteUser;
 
 public class UserDTO {
 private long user_id;
@@ -14,6 +14,9 @@ private String last_name;
 private String userName;
 private String passwrd;
 private String email;
+private String imgurl;
+
+
 public String getEmail() {
 	return email;
 }
@@ -38,7 +41,7 @@ public void setNotesDTO(List<NoteDTO> notesDTO) {
 
 
 
-public static UserDTO from(User user) {
+public static UserDTO from(RevNoteUser user) {
 	UserDTO userDTO = new UserDTO();
 	userDTO.setUser_id(user.getId());
 	userDTO.setUserName(user.getUserName());
@@ -46,8 +49,21 @@ public static UserDTO from(User user) {
 	userDTO.setLast_name(user.getLastName());
 	userDTO.setPasswrd(user.getPw());
 	userDTO.setEmail(user.getEmail());
+	userDTO.setImgurl(user.getImgURL());
 	userDTO.setNotesDTO(user.getUserNotes().stream().map(NoteDTO::from).collect(Collectors.toList()));
 	return userDTO;
+}
+
+
+
+public String getImgurl() {
+	return imgurl;
+}
+
+
+
+public void setImgurl(String imgurl) {
+	this.imgurl = imgurl;
 }
 
 

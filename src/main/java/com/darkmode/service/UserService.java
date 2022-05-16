@@ -15,43 +15,43 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.darkmode.UserRepository;
 import com.darkmode.models.Note;
-import com.darkmode.models.User;
+import com.darkmode.models.RevNoteUser;
 import com.darkmode.models.exception.NoteAlreadyAssignedException;
 import com.darkmode.models.exception.UserNotFoundException;
+import com.darkmode.repositories.RevNoteUserRepository;
 
 @Service
 public class UserService {
-private final UserRepository userRepository;
+private final RevNoteUserRepository userRepository;
 				noteService NoteService;
 	@Autowired
-	public UserService(UserRepository userRepository) {
+	public UserService(RevNoteUserRepository userRepository) {
 	
 	this.userRepository = userRepository;
 }
 	
-	public User addUser(User user) {
+	public RevNoteUser addUser(RevNoteUser user) {
 		return userRepository.save(user);
 	}
 	
-	public List<User> getUsers(){
+	public List<RevNoteUser> getUsers(){
 		return StreamSupport
 				.stream(userRepository.findAll().spliterator(), false)
 				.collect(Collectors.toList());
 	}
 	
-	public User getUserbyID(long id) {
+	public RevNoteUser getUserbyID(long id) {
 		return userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(id));
 	}
-	public User deleteUser(long id) {
-		User user = getUserbyID(id);
+	public RevNoteUser deleteUser(long id) {
+		RevNoteUser user = getUserbyID(id);
 		userRepository.delete(user);
 		return user;
 	}
 	@Transactional
-	public User addNoteToUserNotes(long user_id,long note_id) {
-		User user = getUserbyID(user_id);
+	public RevNoteUser addNoteToUserNotes(long user_id,long note_id) {
+		RevNoteUser user = getUserbyID(user_id);
 		Note note = NoteService.getNotebyID(note_id);
 		if(Objects.nonNull(note.getUser())){throw new NoteAlreadyAssignedException(note_id,note.getUser().getId());
 		}
@@ -60,8 +60,8 @@ private final UserRepository userRepository;
 		return user;
 	}
 	@Transactional
-	public User deleteNote(long user_id, long note_id) {
-		User user = getUserbyID(user_id);
+	public RevNoteUser deleteNote(long user_id, long note_id) {
+		RevNoteUser user = getUserbyID(user_id);
 		Note note = NoteService.getNotebyID(note_id);
 		user.removeNote(note);
 		return user;

@@ -1,133 +1,107 @@
-	package com.darkmode.models;
+package com.darkmode.models;
 
-	import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-	import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
 
-import com.darkmode.models.dto.UserDTO;
-
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 @Entity
-@Table(name = "users", schema = "dark_mode")
+@Table(name="users",uniqueConstraints = { 
+		@UniqueConstraint(columnNames = "username"),
+		@UniqueConstraint(columnNames = "email") 
+	})
 public class User {
-
-
-
-		private @Id @GeneratedValue Long user_id;
-		private String username;
-		private String passwrd;
-		private String first_name;
-		private String last_name;
-		private String email;
-		@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
-		private List<Note> userNotes = new ArrayList<>();
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@NotBlank
+	@Size(max = 20)
+	private String username;
+	@NotBlank
+	@Size(max = 50)
+	@Email
+	private String email;
+	@NotBlank
+	@Size(max = 120)
+	private String password;
 	
-		public Long getUser_id() {
-			return user_id;
-		}
-		public void setUser_id(Long user_id) {
-			this.user_id = user_id;
-		}
-		public List<Note> getUserNotes() {
-			return userNotes;
-		}
-		public void setUserNotes(List<Note> userNotes) {
-			this.userNotes = userNotes;
-		}
-		
-		public Long getId() {
-			return user_id;
-		}
-		public void setId(Long id) {
-			this.user_id = id;
-		}
-		public String getUserName() {
-			return username;
-		}
-		public void setUserName(String userName) {
-			this.username = userName;
-		}
-		public String getPw() {
-			return passwrd;
-		}
-		public void setPw(String pw) {
-			this.passwrd = pw;
-		}
-		public String getFirstName() {
-			return first_name;
-		}
-		public void setFirstName(String firstName) {
-			this.first_name = firstName;
-		}
-		public String getLastName() {
-			return last_name;
-		}
-		public void setLastName(String lastName) {
-			this.last_name = lastName;
-		}
-		public String getEmail() {
-			return email;
-		}
-		public void setEmail(String email) {
-			this.email = email;
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		public User() {
-			super();
-		}
-		@Override
-		public int hashCode() {
-			return Objects.hash(first_name, user_id, last_name, passwrd, username);
-		}
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			User other = (User) obj;
-			return Objects.equals(first_name, other.first_name) && Objects.equals(user_id, other.user_id)
-					&& Objects.equals(last_name, other.last_name) && Objects.equals(passwrd, other.passwrd)
-					&& Objects.equals(username, other.username);
-		}
-		
-		
-		
-		public void addNewNote(Note note) {
-			userNotes.add(note);
-		}
-		public void removeNote(Note note) {
-			userNotes.remove(note);
-		}
-		public static User from(UserDTO userDTO) {
-			User user = new User();
-			user.setUser_id(userDTO.getUser_id());
-			user.setFirstName(userDTO.getFirst_name());
-			user.setLastName(userDTO.getLast_name());
-			user.setUserName(userDTO.getUserName());
-			user.setPw(userDTO.getPasswrd());
-			user.setEmail(userDTO.getEmail());
-			return user;
-			
-		}
+	
+	public User(@NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 50) @Email String email,
+			@NotBlank @Size(max = 120) String password) {
+		super();
+		this.username = username;
+		this.email = email;
+		this.password = password;
 	}
 
+
+	public User(Long id, @NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 50) @Email String email,
+			@NotBlank @Size(max = 120) String password, Set<Role> roles) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.roles = roles;
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(	name = "user_roles", 
+				joinColumns = @JoinColumn(name = "user_id"), 
+				inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
+}

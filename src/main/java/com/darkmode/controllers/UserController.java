@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.darkmode.models.User;
+import com.darkmode.models.RevNoteUser;
 import com.darkmode.models.dto.UserDTO;
 import com.darkmode.service.UserService;
 
@@ -29,20 +29,20 @@ UserController(UserService userService){
 }
 @PostMapping
 public ResponseEntity<UserDTO> addUser(@RequestBody final UserDTO userDTO){
-	User user = userService.addUser(User.from(userDTO));
+	RevNoteUser user = userService.addUser(RevNoteUser.from(userDTO));
 	return new ResponseEntity<>(UserDTO.from(user),HttpStatus.OK);
 
 
 }
 @GetMapping
 public ResponseEntity<List<UserDTO>> getUsers(){
-	List<User> retUsers = userService.getUsers();
+	List<RevNoteUser> retUsers = userService.getUsers();
 	List<UserDTO> retUsersDto = retUsers.stream().map(UserDTO::from).collect(Collectors.toList());
 	return new ResponseEntity<>(retUsersDto,HttpStatus.OK);
 }
 @GetMapping(value= "{id}")
 public ResponseEntity<UserDTO> getUser(@PathVariable final Long id) {
-User user = userService.getUserbyID(id);
+RevNoteUser user = userService.getUserbyID(id);
 return new ResponseEntity<>(UserDTO.from(user),HttpStatus.OK);
 }
 

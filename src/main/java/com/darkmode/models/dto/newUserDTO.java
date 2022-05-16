@@ -4,7 +4,7 @@ import java.util.Objects;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import com.darkmode.models.User;
+import com.darkmode.models.RevNoteUser;
 
 public class newUserDTO {
 	//also implementable in case of user deleting all at somepoint?
@@ -15,7 +15,7 @@ public class newUserDTO {
 	private String lastName;
 	private String email;
 	
-	public static newUserDTO from(User user) {
+	public static newUserDTO from(RevNoteUser user) {
 	newUserDTO NewUserDTO = new newUserDTO();
 	NewUserDTO.setUser_id(user.getId());
 	NewUserDTO.setUserName(user.getUserName());
