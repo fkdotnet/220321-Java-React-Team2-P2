@@ -73,5 +73,27 @@ where the users id is in the link (revnotes user id)
 
 
 
+## Application Configuration 
+Open the project and navigate to source/main/resources
+
+spring.main.banner-mode=CONSOLE
+logging.level.org.springframework=ERROR
+
+spring.jpa.hibernate.ddl-auto=none
+
+spring.datasource.initialization-mode=always
+spring.datasource.platform=postgres
+spring.datasource.url=jdbc:postgresql://localhost:5432/{YOUR_DBs_NAME}
+spring.datasource.username={YOURPOSTGREUSERNAME}
+spring.datasource.password={YOURPOSTGREPASSWORD}
+
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation= true
+spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.PostgreSQLDialect
+# Hibernate ddl auto (create, create-drop, validate, update)
+spring.jpa.hibernate.ddl-auto= update
+# App Properties
+darkmode.app.jwtSecret= teamDarkmode
+darkmode.app.jwtExpirationMs= 86400000
+
 
 
