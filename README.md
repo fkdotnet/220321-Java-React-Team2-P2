@@ -74,7 +74,7 @@ where the users id is in the link (revnotes user id)
 
 
 ## Application Configuration 
-Open the project and navigate to source/main/resources
+Open the project and navigate to source/main/resources and fill out the placeholders below
 
 spring.main.banner-mode=CONSOLE
 
