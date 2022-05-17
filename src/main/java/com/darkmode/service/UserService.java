@@ -24,11 +24,12 @@ import com.darkmode.repositories.RevNoteUserRepository;
 @Service
 public class UserService {
 private final RevNoteUserRepository userRepository;
-				noteService NoteService;
+private final noteService NoteService;
+				
 	@Autowired
-	public UserService(RevNoteUserRepository userRepository) {
-	
+	public UserService(RevNoteUserRepository userRepository, noteService NoteService){
 	this.userRepository = userRepository;
+	this.NoteService = NoteService; 
 }
 	
 	public RevNoteUser addUser(RevNoteUser user) {

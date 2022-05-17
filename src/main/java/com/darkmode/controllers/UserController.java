@@ -58,9 +58,9 @@ return new ResponseEntity<>(UserDTO.from(user),HttpStatus.OK);
 @PostMapping(value="{userID}/notes/{noteID}/add")
 @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 
-public ResponseEntity<UserDTO> addNotetoUser(@PathVariable final long userID, 
-												@PathVariable final long noteID){
-		RevNoteUser user = userService.addNoteToUserNotes(userID, noteID);
+public ResponseEntity<UserDTO> addNotetoUser(@PathVariable final long user_id, 
+												@PathVariable final long note_id){
+		RevNoteUser user = userService.addNoteToUserNotes(user_id, note_id);
 		return new ResponseEntity<>(UserDTO.from(user), HttpStatus.OK);
 		
 		

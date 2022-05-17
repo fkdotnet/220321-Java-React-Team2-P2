@@ -38,7 +38,9 @@ public Note getNotebyID(long id) {
 @Transactional
 public Note editNote(long id, Note note) {
 	Note noteToEdit = getNotebyID(id);
+	noteToEdit.setTitle(note.getTitle());
 	noteToEdit.setTextObj(note.getTextObj());
+	
 	return noteToEdit;
 	
 }

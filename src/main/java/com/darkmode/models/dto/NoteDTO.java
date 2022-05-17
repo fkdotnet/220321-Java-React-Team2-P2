@@ -19,10 +19,9 @@ public static NoteDTO from(Note note) {
 	noteDto.setNote_title(note.getTitle());
 	noteDto.setNoteObject(note.getTextObj());
 	noteDto.setDate_created(note.getDate_created());
-	noteDto.setUserID(note.getUser().getId());
-	/* if(Objects.nonNull(note.getUser())) {
+	if(Objects.nonNull(note.getUser())) {
 		noteDto.setNewUserDTO(NewUserDTO.from(note.getUser()));
-	}*/
+	}
 	
 	
 	

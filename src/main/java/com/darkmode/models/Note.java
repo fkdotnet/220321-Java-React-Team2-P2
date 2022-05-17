@@ -1,5 +1,6 @@
 package com.darkmode.models;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -40,11 +41,13 @@ public class Note{
 	public void setUser(RevNoteUser user) {
 		this.user = user;
 	}
-	public Note(Long note_id, String title, String textObj) {
+	public Note(Long note_id, String title, String textObj,String date_created) {
 		super();
 		this.note_id = note_id;
-		Title = title;
+		this.Title = title;
 		note_object = textObj;
+		this.date_created = date_created;
+		
 	}
 	public Long getNote_id() {
 		return note_id;

@@ -44,10 +44,10 @@ public ResponseEntity<NoteDTO> deleteItem(@PathVariable final long userid, @Path
 }
 	
 	
-@PutMapping("users/{userid}/notes/{noteid}")
+@PutMapping("{id}")
 @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-public ResponseEntity <NoteDTO> updateItem(@PathVariable final long userid, @RequestBody NoteDTO noteDTO){
-		Note note = NoteService.editNote(userid, Note.from(noteDTO));
+public ResponseEntity <NoteDTO> updateItem(@PathVariable final long id, @RequestBody NoteDTO noteDTO){
+		Note note = NoteService.editNote(id, Note.from(noteDTO));
 		return new ResponseEntity<NoteDTO>(NoteDTO.from(note),HttpStatus.OK);
 }
 }
