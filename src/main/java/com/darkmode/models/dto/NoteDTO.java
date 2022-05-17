@@ -21,6 +21,7 @@ public static NoteDTO from(Note note) {
 	noteDto.setDate_created(note.getDate_created());
 	if(Objects.nonNull(note.getUser())) {
 		noteDto.setNewUserDTO(NewUserDTO.from(note.getUser()));
+		noteDto.setUserID(note.getUser().getId());
 	}
 	
 	

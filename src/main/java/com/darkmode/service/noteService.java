@@ -40,6 +40,7 @@ public Note editNote(long id, Note note) {
 	Note noteToEdit = getNotebyID(id);
 	noteToEdit.setTitle(note.getTitle());
 	noteToEdit.setTextObj(note.getTextObj());
+	noteToEdit.setDate_created(note.getDate_created());
 	
 	return noteToEdit;
 	
