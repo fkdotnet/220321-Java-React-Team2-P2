@@ -20,11 +20,11 @@ import com.darkmode.service.*;
 @RequestMapping("/notes")
 public class NoteController {
 private final noteService NoteService;
-private final UserService userService;
+
 @Autowired
 public NoteController(noteService NoteService){
 	this.NoteService = NoteService;
-	this.userService = null;
+
 	
 	
 }
@@ -41,6 +41,7 @@ public ResponseEntity<NoteDTO> addNote(@RequestBody final NoteDTO noteDTO){
 public ResponseEntity<NoteDTO> deleteItem(@PathVariable final long userid, @PathVariable final long noteid){
 	Note note = NoteService.deleteNote(userid,noteid);
 	return new ResponseEntity<>(NoteDTO.from(note),HttpStatus.OK);
+}
 	
 	
 @PutMapping("users/{userid}/notes/{noteid}")
