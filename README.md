@@ -2,10 +2,26 @@
 team 2 P2 Java React Hibernate
 
 
-We got this thing guys!!!
 
 ## Spring Security Implementation
 Our API is now secured via JWT Json Web Token Encryption, on running the application Spring Security will generate 3 boilerplate tables, User, User_Roles, and ROLES. I have defined these roles in an ENUM called ROLES_ENUM
+
+
+The first thing you should do is register a user with a post request to:
+
+http://hostname:8080/api/auth/signup
+
+with the user details as such in the body 
+{
+"username":"user",
+"password":"password",
+"email":"email",
+"role":["admin","user"]
+}
+this will create a user account with a Hashed Password -- do NOT add the user in plain text via DBeaver as it will not read the login info
+
+
+
 
 Login is achieved by sending a post request to http://hostname:8080/api/auth/signin
 
@@ -18,6 +34,9 @@ response will be user info + JSON Web Token. I will likely from here tie in the 
 
 Registration is a post to signup with the details.
 All of the methods tagged @Preauthorize require an auth token
+
+
+
 
 ## Requests/Handler Addressing
 
@@ -48,6 +67,11 @@ http://localhost:8080/users/{userid}/notes/{noteid}
 A delete request sent with the requested variables, drops the note object from the table
 
 ## Note Update
+Pass the note in Json format in a PUT request to:
+users/{userid}/notes/"
+where the users id is in the link (revnotes user id)
+
+
 
 
 
