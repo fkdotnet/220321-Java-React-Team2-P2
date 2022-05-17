@@ -60,7 +60,7 @@ A post with this object will add a note to the TABLE (read on)
 A POST Request to 
 http://localhost:8080/users/{userID}/notes/{noteID}/add
 (UserID and NoteID = The id numbers from the RevUser and Notes Table of your choice)
-this adds a note created above to the specified User Table.
+this adds a note created above to the specified User in the Table.
 
 ## Note Object Deletion
 http://localhost:8080/users/{userid}/notes/{noteid}
