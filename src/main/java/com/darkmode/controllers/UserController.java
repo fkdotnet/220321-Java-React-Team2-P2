@@ -55,7 +55,7 @@ return new ResponseEntity<>(UserDTO.from(user),HttpStatus.OK);
 }
 
 
-@PostMapping(value="{userID}/notes/{noteID}/add")
+@PostMapping(value="{user_id}/notes/{note_id}/add")
 @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 
 public ResponseEntity<UserDTO> addNotetoUser(@PathVariable final long user_id, 
