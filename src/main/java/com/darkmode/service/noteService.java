@@ -34,7 +34,11 @@ public List<Note> getNotes(){
 public Note getNotebyID(long id) {
 	return noteRepository.findById(id).orElseThrow(() -> new NoteNotFoundException(id));
 }
-
+public List<Note> getNotesbyUserID(long user_id){
+	return StreamSupport
+			.stream(noteRepository.findUsersNote(user_id).spliterator(),false)
+			.collect(Collectors.toList());
+}
 @Transactional
 public Note editNote(long id, Note note) {
 	Note noteToEdit = getNotebyID(id);

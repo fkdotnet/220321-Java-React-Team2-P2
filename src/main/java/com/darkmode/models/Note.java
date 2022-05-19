@@ -1,4 +1,5 @@
 package com.darkmode.models;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.FetchType;
@@ -22,6 +23,7 @@ public class Note{
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
+	
 	private RevNoteUser user;
 	public Note() {
 		
