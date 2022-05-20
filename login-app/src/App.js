@@ -96,9 +96,12 @@ if (!token) {
             <Route exact path="/" component={Home} />
 
             <PrivateRoute path="/Account">
-              <div>
-                
-              </div>              
+            
+            <div> <pre> {JSON.stringify({profile})}</pre></div>   
+  
+                  
+                  
+
               </PrivateRoute>
               <PublicRoute path="/login" component={Login} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
