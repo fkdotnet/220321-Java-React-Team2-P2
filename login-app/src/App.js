@@ -13,50 +13,18 @@ import Profile from "./components/Profile";
 import Note from "./components/Note";
 import { getToken, removeUserSession, setUserSession } from './Utils/Common';
 import apiClient from './http-common';
-
+import userProfile from './userProfile'
 import Notes from './pages/Notes';
 import EditNote from './pages/EditNote';
 import CreateNote from './pages/CreateNote';
 
 function App() {
-const get_note_id = useRef(null);
-const get_note_title = useRef(null);
-const get_note_text = useRef(null);
-const get_note_date = useRef(null);
-const get_note_user_id = useRef(null);
-
-const get_user_id = useRef(null);
-const get_username = useRef(null);
-const get_user_first_name = useRef(null);
-const get_user_last_name = useRef(null);
-const get_user_email = useRef(null);
 
 
+const [profile,setProfile] = useState(null);
 const [getResult, setGetResult] = useState(null);
 
 const [notes, setNotes] = useState([]);
-const formatResponse = (res) => {
-  return JSON.stringify(res, null, 2);
-};
-
-
-
-
-async function getUserData(){
-  try {
-    const res = await apiClient.get("/users"+localStorage.getItem("user_id"),
-    {headers: { "Authorization" : localStorage.getItem("sessionHeader")},
-  });
-  const result = {
-    status: res.status,
-    headers: res.headers,
-    data: res.data 
-  };
-  setGetResult(formatResponse(result));
-
-} catch (err) {
-  setGetResult(formatResponse(err.response?.data|| err))
-}
 
 
 
@@ -82,40 +50,28 @@ async function getUserData(){
 
 
 
-  function createAccount(infoList) {
-    return (
-      <Account
-        key={infoList.user_id}
-        img={infoList.imgurl}
-        uname={infoList.userName}
-        fname={infoList.first_name}
-        lname={infoList.last_name}
-        email={infoList.email}
-      />
-      
-    );
-  }
-
   const [authLoading, setAuthLoading] = useState(true);
 
   useEffect(() => {
     const token = getToken();
-    if (!token) {
-      return;
-    }
+  
+    const fetchUser = async () =>{
+    try {const res = await apiClient.get("/users/"+localStorage.getItem("user_id"),
+    {headers: { "Authorization" : localStorage.getItem("TokenHeader")}})
+    console.log(res.data);
+    setProfile(res.data);
+  }catch(err){
 
-    axios.get(`"http://localhost:8080/api/auth/signin"/verifyToken?token=${token}`).then(response => {
-      setUserSession(response.data.accessToken, response.data.username);
-      setAuthLoading(false);
-    }).catch(error => {
-      removeUserSession();
-      setAuthLoading(false);
-    });
+  }
+}
+if (!token) {
+  return;
+  
+}else(fetchUser())
+    
   }, []);
 
-  if (authLoading && getToken()) {
-    return <div className="content">Checking Authentication...</div>
-  }
+  
 
   return (
     <div className="App">
@@ -140,9 +96,9 @@ async function getUserData(){
             <Route exact path="/" component={Home} />
 
             <PrivateRoute path="/Account">
-                <div>
-                  
-              </div>
+              <div>
+                
+              </div>              
               </PrivateRoute>
               <PublicRoute path="/login" component={Login} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
@@ -150,18 +106,7 @@ async function getUserData(){
 
                     
                     <div>
-                    <CreateArea onAdd={addNote} />
-                  {notes.map((noteItem, index) => {
-                    return (
-                      <Note
-                        key={index}
-                        id={index}
-                        title={noteItem.title}
-                        content={noteItem.content}
-                        onDelete={deleteNote}
-                      />
-                    );
-                  })} 
+                    
                     </div>
                   </PrivateRoute>
 
@@ -175,5 +120,5 @@ async function getUserData(){
     </div>
   );
 }
-}
+
 export default App;

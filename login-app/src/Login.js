@@ -15,7 +15,7 @@ function Login(props) {
     axios.post('http://localhost:8080/api/auth/signin', { username: username.value, password: password.value }).then(response => {
       setLoading(false);
       setUserSession(response.data.accessToken, response.data.username,response.data.email );
-      localStorage.setItem('user_id',response.data.user_id);
+      localStorage.setItem('user_id',response.data.id);
       localStorage.setItem('TokenHeader', "Bearer " +response.data.accessToken)
       props.history.push('/account')
     }).catch(error => {
