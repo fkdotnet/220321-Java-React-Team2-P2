@@ -19,7 +19,7 @@ import com.darkmode.models.RevNoteUser;
 import com.darkmode.models.User;
 import com.darkmode.models.dto.UserDTO;
 import com.darkmode.service.UserService;
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin
 @RestController
 @RequestMapping("/users/")
 public class UserController {

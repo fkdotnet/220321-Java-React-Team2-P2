@@ -1,13 +1,7 @@
+
 import axios from "axios";
-const infoList = []
-/*
-axios.get("http://localhost/users/",{responseType:"json"
-}).then(function (response){
-  infoList = response
-});
+import apiClient from "./http-common"
 
-
-
+let infoList = [];
 
 export default infoList;
-*/

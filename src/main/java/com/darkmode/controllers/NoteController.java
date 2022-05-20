@@ -21,7 +21,7 @@ import com.darkmode.models.Note;
 import com.darkmode.models.RevNoteUser;
 import com.darkmode.models.dto.NoteDTO;
 import com.darkmode.service.*;
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin
 @RestController
 @RequestMapping("/notes")
 public class NoteController {
