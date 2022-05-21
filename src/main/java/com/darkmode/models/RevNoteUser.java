@@ -21,6 +21,18 @@ public class RevNoteUser {
 
 
 
+		public RevNoteUser( long user_id,String username, String passwrd, String first_name, String last_name, String email,
+			String imgurl, List<Note> userNotes) {
+		super();
+		this.user_id = user_id;
+		this.username = username;
+		this.passwrd = passwrd;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.email = email;
+		this.imgurl = imgurl;
+		this.userNotes = userNotes;
+	}
 		private @Id @GeneratedValue Long user_id;
 		private String username;
 		private String passwrd;
