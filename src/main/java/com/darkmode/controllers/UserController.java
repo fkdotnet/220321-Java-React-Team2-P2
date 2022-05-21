@@ -19,7 +19,7 @@ import com.darkmode.models.RevNoteUser;
 import com.darkmode.models.User;
 import com.darkmode.models.dto.UserDTO;
 import com.darkmode.service.UserService;
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/users/")
 public class UserController {

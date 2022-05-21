@@ -25,7 +25,7 @@ const [profile,setProfile] = useState(null);
 const [getResult, setGetResult] = useState(null);
 
 const [notes, setNotes] = useState([]);
-
+const [userNotes,setUserNotes] = useState([]);
 
 
 
@@ -60,14 +60,27 @@ const [notes, setNotes] = useState([]);
     {headers: { "Authorization" : localStorage.getItem("TokenHeader")}})
     console.log(res.data);
     setProfile(res.data);
+
+    
   }catch(err){
 
   }
-}
+    }
+  const fetchNotes = async () =>{
+    try {const res = await apiClient.get("/notes/byUser/"+localStorage.getItem("user_id"),
+  {headers: { "Authorization" : localStorage.getItem("TokenHeader")}})
+  setUserNotes(res.data);
+  }
+  catch(err){
+
+  }
+  }
+
 if (!token) {
   return;
   
 }else(fetchUser())
+fetchNotes();
     
   }, []);
 
@@ -105,11 +118,11 @@ if (!token) {
               </PrivateRoute>
               <PublicRoute path="/login" component={Login} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
-                <PrivateRoute  path="/Note" component={Note}>
+                <PrivateRoute  path="/Note">
 
                     
                     <div>
-                    
+                    <div> <pre> {JSON.stringify({userNotes})}</pre></div>
                     </div>
                   </PrivateRoute>
 
