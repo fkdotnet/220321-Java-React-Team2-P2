@@ -63,4 +63,13 @@ public ResponseEntity <NoteDTO> updateItem(@PathVariable final long id, @Request
 		Note note = NoteService.editNote(id, Note.from(noteDTO));
 		return new ResponseEntity<NoteDTO>(NoteDTO.from(note),HttpStatus.OK);
 }
+
+
+@GetMapping()
+@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+public ResponseEntity <List<NoteDTO>> getAll(@PathVariable final long id, @RequestBody NoteDTO noteDTO){
+		List <Note> retNotes = NoteService.getNotes();
+		List<NoteDTO> retNoteDTO = retNotes.stream().map(NoteDTO::from).collect(Collectors.toList());
+
+		return new ResponseEntity<>(retNoteDTO,HttpStatus.OK);}
 }
