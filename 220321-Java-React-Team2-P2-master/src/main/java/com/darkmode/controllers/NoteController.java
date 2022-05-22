@@ -73,15 +73,15 @@ public ResponseEntity <List<NoteDTO>> getAll(){
 
 		return new ResponseEntity<>(retNoteDTO,HttpStatus.OK);}
 }
-/*
-@GetMapping()
+
+@GetMapping("{id}")
 @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-public ResponseEntity <List<NoteDTO>> getAll(@PathVariable final long id, @RequestBody NoteDTO noteDTO){
-		List <Note> retNotes = NoteService.getNotes();
-		List<NoteDTO> retNoteDTO = retNotes.stream().map(NoteDTO::from).collect(Collectors.toList());
+public ResponseEntity <NoteDTO> getByID(@PathVariable final long id){
+		Note retNotes = NoteService.getNotebyID(id);
+		
+		return new ResponseEntity<>(NoteDTO.from(retNotes),HttpStatus.OK);
+}
 
-		return new ResponseEntity<>(retNoteDTO,HttpStatus.OK);}
-*/
-
+}
 
 
