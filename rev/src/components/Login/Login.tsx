@@ -40,6 +40,7 @@ export const Login: React.FC<any> = () => {
             //these are the states that were changed with handleChange
             //we need "as any" to make it so that the return type can be any type
         )
+        
     }
 
     const register = () => {
