@@ -72,7 +72,7 @@ public ResponseEntity <List<NoteDTO>> getAll(){
 		List<NoteDTO> retNoteDTO = retNotes.stream().map(NoteDTO::from).collect(Collectors.toList());
 
 		return new ResponseEntity<>(retNoteDTO,HttpStatus.OK);}
-}
+
 
 @GetMapping("{id}")
 @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
