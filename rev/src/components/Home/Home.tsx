@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { notes } from "../../actions/NotesActions";
 import { INote, IUserData } from "../../store/types";
 import { saveNote } from "../../actions/SaveActions";
+import { deleteNote } from "../../actions/DeleteAction";
+
 import { LOGIN_USER, NOTE_SAVE } from "../../actions/actionTypes";
 
 import "./Home.css"
@@ -14,21 +16,43 @@ interface INoteItemProps {
 }
 
 const Note = ({noteItem, itemSelect}: INoteItemProps) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const onItemSelect = () => {
         itemSelect(noteItem)
+    }    
+
+    const onDelete = async () => {
+        let userJson: string | null = localStorage.getItem('user')? localStorage.getItem('user'): null
+        let userData: IUserData = userJson? JSON.parse(userJson) : null
+        // console.log("userData: ", userData)
+        if(!userData) navigate("/");
+
+        const authHeader = userData.tokenType + ' ' + userData.accessToken
+
+        const deleteResult = dispatch(deleteNote(authHeader, userData.id, noteItem.id) as any)
+
+        if(deleteResult) {
+            // dispatch(notes(authHeader, userData.id) as any)
+            // window.location.reload()
+        }
     }
+
     return (
-        <div className="note-card-container" onClick = {onItemSelect}>
+        <div className="note-card-container">
             <div className="note-card-title">
                 {noteItem.title}
             </div>
             <div className="note-card-content"> 
                 {noteItem.content}
             </div>
+            <span className="note-card-delete" onClick = {onDelete}> delete
+            </span>
+            <span className="note-card-edit" onClick = {onItemSelect}> edit
+            </span>
         </div>
     )
 }
-
 export const Home: React.FC<any> = () => {
 
     //we need useSelector to access the store
