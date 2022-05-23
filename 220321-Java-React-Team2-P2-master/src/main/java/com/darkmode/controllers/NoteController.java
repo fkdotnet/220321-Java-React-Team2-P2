@@ -1,5 +1,5 @@
 package com.darkmode.controllers;
-
+///cors enabled
 import java.util.List;
 import java.util.stream.Collectors;
 
