@@ -93,7 +93,7 @@ body {
  font-weight: bold;
 }
 .quotebar{
-  position:fixed;
+  position:sticky;
   bottom:0;
   left:0;
   right:0;
@@ -163,6 +163,10 @@ body {
    float: left;
    cursor: pointer;
    padding-top: 5px;
+ }
+ .image{
+  background-image: './Smile.png';
+
  }
 
  .nav-button {

@@ -5,7 +5,7 @@ import { notes } from "../../actions/NotesActions";
 import { INote, IUserData } from "../../store/types";
 import { saveNote } from "../../actions/SaveActions";
 import { LOGIN_USER, NOTE_SAVE } from "../../actions/actionTypes";
-
+import { deleteNote } from "../../actions/deleteActions";
 import "./Home.css"
 
 interface INoteItemProps {
@@ -29,6 +29,9 @@ const Note = ({noteItem, itemSelect}: INoteItemProps) => {
     )
 }
 
+
+
+
 export const Home: React.FC<any> = () => {
 
     //we need useSelector to access the store
@@ -47,6 +50,7 @@ export const Home: React.FC<any> = () => {
     const [curID, setCurID] = useState(0)
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
+    const [completed,setCompleted] = useState(false)
 
     const handleChange = (e:any) => {
         if(e.target.name === "title"){ 
@@ -87,7 +91,7 @@ export const Home: React.FC<any> = () => {
 
         const authHeader = userData.tokenType + ' ' + userData.accessToken
 
-        const saveResult = dispatch(saveNote({
+        const saveResult = await dispatch(saveNote({
             note_title: title,
             noteObject: content,
             date_created: todayString
@@ -97,20 +101,27 @@ export const Home: React.FC<any> = () => {
             // dispatch(notes(authHeader, userData.id) as any)
             // window.location.reload()
             setShowNote(false)
+            setCompleted(true)
         }
     }
-
-    const onDelete = async() => {
+    const onDelete = async () => {
         let userJson: string | null = localStorage.getItem('user')? localStorage.getItem('user'): null
         let userData: IUserData = userJson? JSON.parse(userJson) : null
         // console.log("userData: ", userData)
-        const authHeader = userData.tokenType + ' ' + userData.accessToken
-       
-       
-       
         if(!userData) navigate("/");
+    
+        const authHeader = userData.tokenType + ' ' + userData.accessToken
+    
+        const deleteResult =  await dispatch(deleteNote(authHeader, userData.id, curID) as any)
+    console.log(deleteResult)
+        if(deleteResult) {
+            setShowNote(false)
+            setCompleted(true)
+            
 
+        }
     }
+    
 
     const logout = () => {
         localStorage.removeItem('user')
@@ -126,14 +137,17 @@ export const Home: React.FC<any> = () => {
     }
 
     useEffect(() => {
+        setCompleted(false)
         let userJson: string | null = localStorage.getItem('user')? localStorage.getItem('user'): null
         let userData: IUserData = userJson? JSON.parse(userJson) : null
         console.log("userData: ", userData)
         if(!userData) {navigate("/"); return;}
-
+        if(completed){
+            window.location.reload()
+        }
         const authHeader = userData.tokenType + ' ' + userData.accessToken
         console.log(authHeader)
-
+        
         // load notes in initial
         dispatch(notes(authHeader, userData.id) as any)
     }, [])
@@ -143,7 +157,7 @@ export const Home: React.FC<any> = () => {
             <div className="nav-container">
             
 
-                <div className="nav-logo">RevNotes</div>
+                <div className="nav-logo"> RevNotes</div>
                 
                 <div className="nav-button-logout" onClick={() => logout()} >
                     Logout
@@ -153,6 +167,9 @@ export const Home: React.FC<any> = () => {
                 </div>  
                 <div className="nav-button" onClick={()=>navigate("/weather")}>
                 Weather
+                </div>
+                <div className="nav-button" onClick={()=>window.location.reload()}>
+                    Notes
                 </div>
             </div>
             <br />
@@ -182,7 +199,7 @@ export const Home: React.FC<any> = () => {
                         />
                     </div>
                     <div className="note-button" onClick={onSave} >Save</div>
-                    <div className="note-button">Delete note</div>
+                    <div className="note-button" onClick={onDelete}> Delete note</div>
                     </form>
                 </div>
             :                
@@ -194,7 +211,7 @@ export const Home: React.FC<any> = () => {
                 }                   
             </div>
             } 
-            <footer className="quotebar"> <p>5/22/2022</p>Made with love by the Dark Mode Builders -- Rabin B Valorie B. Rakan H. Kokou P. Jacob M </footer>
+            
         </>
     );
 } 

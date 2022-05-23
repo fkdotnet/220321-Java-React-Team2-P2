@@ -40,7 +40,6 @@ export const Login: React.FC<any> = () => {
             //these are the states that were changed with handleChange
             //we need "as any" to make it so that the return type can be any type
         )
-        
     }
 
     const register = () => {
@@ -58,8 +57,18 @@ export const Login: React.FC<any> = () => {
 
 
     return(
-        <div className="login">
+    
+       
+       <div className="login">
+             
+             
+        <header>
+        <div>
+                 <img src={require("../../Smile.png")} alt="banner" />
+            </div>
 
+        </header>
+<body className="loginBody">
             <div className="text-container">
                 <h1>Welcome!</h1>
                 <h3>Login to your account</h3>
@@ -74,8 +83,9 @@ export const Login: React.FC<any> = () => {
                 <button className="login-button" onClick={login}>Login</button>
                 <button className="register-button" onClick={register}>Register</button>
             </div>
-
+            </body>
         </div>
+       
     )
 
 } 

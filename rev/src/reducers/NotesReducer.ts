@@ -1,5 +1,5 @@
 import { INote } from "../store/types";
-import { NOTES_DATA } from "../actions/actionTypes";
+import { NOTES_DATA, NOTE_SAVE, NOTE_DEL } from "../actions/actionTypes";
 
 //reducers are responsible for calculating and sending new state data to the store
 //this is the user reducer, which will help us calculate changes in the User
@@ -21,6 +21,9 @@ export const NotesReducer = (state:INote[] = initialState, action: Action) => {
             return {
                 initialState //return that object so it can be used in the view
             }
+        case NOTE_DEL:
+            initialState = action.payload
+            return{ ...initialState}
         //THIS BROKE MY CODE BEFORE
         //since there is no action when the application starts, we need a default case
         //or else the application will break.

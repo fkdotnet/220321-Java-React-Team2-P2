@@ -1,4 +1,5 @@
 import { NOTE_SAVE } from "./actionTypes";
+import {updateNote} from "./updateActions"
 
 //This is the file where our actual business logic will occur (like calls to an API)
 
