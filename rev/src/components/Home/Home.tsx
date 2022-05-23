@@ -98,10 +98,12 @@ export const Home: React.FC<any> = () => {
         }, authHeader, userData.id, curID) as any)
 
         if(saveResult) {
-            // dispatch(notes(authHeader, userData.id) as any)
-            // window.location.reload()
+            await timeout(500)
             setShowNote(false)
-            setCompleted(true)
+            dispatch(notes(authHeader, userData.id) as any)
+            
+            
+            
         }
     }
     const onDelete = async () => {
@@ -115,13 +117,17 @@ export const Home: React.FC<any> = () => {
         const deleteResult =  await dispatch(deleteNote(authHeader, userData.id, curID) as any)
     console.log(deleteResult)
         if(deleteResult) {
+            await timeout(500)
             setShowNote(false)
-            setCompleted(true)
+            dispatch(notes(authHeader, userData.id) as any)
             
 
         }
     }
-    
+    function timeout(delay: number) {
+        return new Promise( res => setTimeout(res, delay) );
+    }
+      
 
     const logout = () => {
         localStorage.removeItem('user')
