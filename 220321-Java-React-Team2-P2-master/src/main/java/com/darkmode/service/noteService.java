@@ -49,8 +49,8 @@ public Note editNote(long id, Note note) {
 	return noteToEdit;
 	
 }
-public Note deleteNote(long id, long noteid) {
-	Note noteToRem = getNotebyID(id);
+public Note deleteNote(long noteid) {
+	Note noteToRem = getNotebyID(noteid);
 	noteRepository.delete(noteToRem);
 	return noteToRem;
 }

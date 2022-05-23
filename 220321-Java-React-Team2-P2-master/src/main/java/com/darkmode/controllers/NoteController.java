@@ -42,10 +42,10 @@ public ResponseEntity<NoteDTO> addNote(@RequestBody final NoteDTO noteDTO){
 	
 }
 	
-@DeleteMapping("/users/{userid}/notes/{noteid}")
+@DeleteMapping("{noteid}")
 @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')") 
-public ResponseEntity<NoteDTO> deleteItem(@PathVariable final long userid, @PathVariable final long noteid){
-	Note note = NoteService.deleteNote(userid,noteid);
+public ResponseEntity<NoteDTO> deleteItem(@PathVariable final long noteid){
+	Note note = NoteService.deleteNote(noteid);
 	return new ResponseEntity<>(NoteDTO.from(note),HttpStatus.OK);
 }
 @GetMapping("/byUser/{user_id}")
