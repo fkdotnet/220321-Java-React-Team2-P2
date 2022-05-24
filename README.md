@@ -1,9 +1,9 @@
 # 220321-Java-React-Team2-P2
 team 2 P2 Java React Hibernate
 
-Team Darkmode made a fun note taking application called RevNotes for Revature trainees. It features login, registration, note creation, and a weather feature. The App runs on a stack incorporating various industry grade technologies. Technologies include a Spring Backend with REST APl controllers serving data from a PostgreSQL database instance, a React Redux disatcher for login and note actions in Typescriot as well a charming and minimalistic CSS frontend for theming. 
+Team Darkmode made a fun note taking application called RevNotes for Revature trainees. It features login, registration, note creation, and a weather feature. The App runs on a stack incorporating various industry grade technologies. Technologies include a Spring Backend with REST APl controllers serving data from a PostgreSQL database instance, a React Redux disatcher for login and note actions in Typescript as well a charming and minimalistic CSS frontend for theming. 
 
-RevNotes has potential to become a full fledged planning application for trainees to help them stay organized and focused while also having fun. Possible features to add include: light and dark mode, a calendar, pop-up reminders, to do lists, stickers, and background themes. As a group we are proud of what we have created and look forward to working further on new and exciting projects.
+RevNotes has potential to become a full fledged planning application for trainees to help them stay organized and focused while also having fun. Possible features to add include: light and dark mode, a calendar, pop-up reminders, to-do lists, stickers, and background themes. As a group we are proud of what we have created and look forward to working further on new and exciting projects.
 
 ## Spring Security Implementation
 Our API is now secured via JWT Json Web Token Encryption, on running the application Spring Security will generate 3 boilerplate tables, User, User_Roles, and ROLES. I have defined these roles in an ENUM called ROLES_ENUM
