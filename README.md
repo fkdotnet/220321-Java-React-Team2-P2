@@ -8,13 +8,21 @@ RevNotes has potential to become a full fledged planning application for trainee
 ## Technologies
 
 -Spring
+
 -Rest API
+
 -PostgreSQL
+
 -React Typescript
+
 -Java
+
 -Javalin
+
 -JUnit
+
 -Hibernate
+
 -AWS RDS
 
 ## Spring Security Implementation
